@@ -1,0 +1,94 @@
+﻿File Formats
+----
+For varied historical reasons, the file formats supported are a bit icky. I've tried to tidy them up, but caveats apply.
+
+There are 4 types of file content, each of which support different file types:-
+1) Monsters: A list of monsters. Best stored in XML format. Can be imported in XML or Excel XlsX format.
+2) Spells: List of spells. Stored in XML format. Can be imported in XML or Excel XlsX format, or a text format.
+3) Spellbooks: List of spell names associated with different spellbook names. XML format.
+4) Encounters: List of 'actual' monsters, associated with an encounter name. The actual monsters are the monster name, plus HP, and an optional character name. XML format.
+
+MONSTERS
+------
+Note: This is distributed with two XlsX files. MM Monsters.XlsX contains a list of all monsters with name and XP only. This was derived from http://media.wizards.com/2014/downloads/dnd/MM_MonstersCR.pdf   BR Monsters.XlsX contains all the details of some of the monsters in http://media.wizards.com/2014/downloads/dnd/DMBasicRulesv.0.3.pdf  Other files may be made available as I create them, but only ever based on information in the public domain, that WotC have made freely available.
+Note 2: Import the BR Monsters.XlsX first!!! The import function skips any duplicates at the moment, irrespective of whether the existing entry consists of only the name and XP.
+
+1) Excel workbook (XlsX). Single sheet named "Sheet1". First row has headings. Column order is not important. Only Name and XP are not optional columns. Strings are generally case sensitive. Numbers must not have , or . in. Column names/headings mustn't have spaces before or after them, so " Name" or "Name " wouldn't work.
+- Name (String), XP (number), Source (string, useful to track what the source of the entry is, e.g. Lost Mines), 
+ Character (y|n Indicates that this is a single character such as Sildar (y) rather than a race such as Goblin (n)),	
+ Size (tiny/medium/huge/etc - only the first character is needed, and it's not case sensitive), 
+ Type (dragon, human, goblin, etc - whatever you want to be able to filter on),	
+ Alignment (unaligned or any relevant two characters such as LN, CG, etc), AC (number), 
+ HP(string such as 2d4+9, must just be a formula not any other text),	Speed(string, can be blank=30 ft),
+ STR,DEX,CON,INT,WIS,CHA(numbers representing the values, not the modifiers e.g. 13 not +1), Saves(string, e.g. Wis+3), 
+ Skills(string, e.g. Perception+3),Vulnerable(string of comma delimited conditions and weapons etc), 
+ Resist(string of comma delimited that monster is resistant to), Immune (string, comma delimited), 
+ Darkvision,Truesight,Tremorsense,Blindsight(number, in ft, blank=0), Passive Perception(number, e.g. 12),
+ Lang(string, comma delimited), Feats(string, of the format "feat name: description. " The ". " (i.e. fullstop followed by a space) is the delimiter between feats, e.g. "feat a: descr. descr. feat b: descr.not a feat because not space: descr. ") 	
+ #Attack (string), Melee(string, name of main melee attack),MeleeAtk(number, attack modifier), MeleeDmg(string),MeleeSpecial(string),
+ Rng(string, name of main ranged attack), RngAtk(number), RngDmg(string), RngShort(number, in ft), RngFull(number, in ft), RngSpecial(string),
+ Other(string, other attacks, ::: delimited, of format Melee(name,atkModifier,dmg,special) or Ranged(name,atkModifier,dmg,shortRange,maxRange,special. Only use this field if you're confident - just fill in any weird stuff as a feat or in the Descr field),
+ Spell DC(number),Spell Rng Atk(number),Cantrips(string, comma delimited list of spells), #1st Level(number, number of slots),1st Level(string),
+  #2nd Level, 2nd Level, #3rd Level, 3rd Level, #4th Level, 4th Level, #5th Level, 5th Level,
+ Descr(string, description),
+ Arctic,Coastal,Desert,Forest,Grassland,Hill,Mountain,Swamp,Underdark,Underwater,Urban(y|n, environments these are found in. Often easier to update these using the batch update function within the app)
+2) XML file. See example file. 
+
+
+SPELLS
+------
+Note: This is distributed with an All Spells.xlsx  I _think_ these spells are all available online in the basic rules at http://dnd.wizards.com/products/tabletop/players-basic-rules
+
+1) Excel XlsX working, one sheet called "Sheet1". First row is headings. Same restrictions as monsters XlsX.
+- Name(string), Level(number, 0=Cantrips), School(string, e.g. Conjuration), IsRitual(TRUE|FALSE), 
+  CastingTime(string, either blank or of the format "n timescale" where n is a number, and timescale is one of action,minute,hour,bonus action,reaction),
+  Range(string, of format "n distance" where n is a number and distance is one of feet,miles, or Self, Touch, Sight or Self (n-distance)),
+  Verbal,Somatic,Material(TRUE|FALSE, what type of casting), MaterialNeeded(string, or blank),
+  Duration(string, Instantaneous, Until dispelled, "Concentration, up to x time", or "x time" where x is a number and time is action,minute,hour,day),
+  PHBPage(number, page ref in the Players Hand Book),
+  Bard,Cleric,Druid,Paladin,Ranger,Sorcerer,Warlock,Wizard(TRUE|FALSE - whether this class can use the spell),
+  Description(string),
+  RtfDescription(string, optional version of description with RTF markup)
+
+2) Text: Really grotty format that happens when you scan the PHB, OCR it using One Note, and copy/paste the text into a text file. Probably best to avoid unless you fancy doing lots of debugging. I may be able to improve this if I get requests.
+
+3) XML file. e.g.
+<?xml version="1.0"?><ArrayOfSpell xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/DnDMonsters">
+<Spell>
+ <CastingTime>1</CastingTime>
+ <CastingTimeCondition/>
+ <CastingTimeUnit>action</CastingTimeUnit>
+ <Classes>Sorcerer</Classes>
+ <Description>You hurl a bubble of acid. Choose one creature within range, or choose two creatures within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage. This spell’s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).</Description>
+ <DurationConcentration>false</DurationConcentration>
+ <DurationInstantaneous>true</DurationInstantaneous>
+ <DurationMax>-1</DurationMax>
+ <DurationSpecial>false</DurationSpecial>
+ <DurationUnits i:nil="true"/>
+ <DurationUntilDispelled>false</DurationUntilDispelled>
+ <DurationUntilTriggered>false</DurationUntilTriggered>
+ <IsRitual>false</IsRitual>
+ <Level>0</Level>
+ <Material>false</Material>
+ <MaterialNeeded/>
+ <Name>Acid Splash</Name>
+ <PHBPage>211</PHBPage>
+ <RangeSelf>false</RangeSelf>
+ <RangeShape i:nil="true"/>
+ <RangeSight>false</RangeSight>
+ <RangeSpecial>false</RangeSpecial>
+ <RangeSz>60</RangeSz>
+ <RangeTouch>false</RangeTouch>
+ <RangeUnits>feet</RangeUnits>
+ <RangeUnlimited>false</RangeUnlimited>
+ <School>Conjuration</School>
+ <Somatic>true</Somatic>
+ <Verbal>true</Verbal>
+ <rtfDescription>{\rtf1\ansi{\fonttbl{\f0\fswiss\fprq2\fcharset0 Microsoft Sans Serif;}{\f1\fnil\fcharset0 Courier New;}}\fs19 { You hurl a bubble of acid. Choose one creature within range, or choose two creatures within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage. \par}{ This spell’s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6). \par}}</rtfDescription>
+ <sCastingTime>1 action</sCastingTime>
+ <sComponents i:nil="true"/>
+ <sDuration>Instantaneous</sDuration>
+ <sRange>60 feet</sRange>
+</Spell>
+</ArrayOfSpell>
+
