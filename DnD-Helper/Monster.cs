@@ -138,7 +138,12 @@ namespace DnDMonsters
         #endregion
         #endregion
 
-
+        public int RollInitiative(Random r)
+        {
+            int roll = r.Next(1, 21);
+            roll += GetModifier(DEX);
+            return roll;
+        }
 
 
         public Monster()
@@ -146,10 +151,15 @@ namespace DnDMonsters
             //ImageDetails = new MonsterImage(this);
         }
 
-        public string Modifier(int ability)
+        private int GetModifier(int ability)
         {
             int i = ability / 2;
             i -= 5;
+            return i;
+        }
+        public string Modifier(int ability)
+        {
+            int i = GetModifier(ability);
             string s = "";
             if (i > 0) s = "+";
             s += i.ToString();

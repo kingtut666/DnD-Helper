@@ -37,6 +37,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.butEncPrintPreview = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkAutoSummary = new System.Windows.Forms.CheckBox();
             this.butEncSaveSingleAs = new System.Windows.Forms.Button();
             this.butEncounter = new System.Windows.Forms.Button();
             this.checkSummaryOnly = new System.Windows.Forms.CheckBox();
@@ -111,6 +112,7 @@
             this.colNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCountFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblSettingsMsg = new System.Windows.Forms.LinkLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.butSpellImport = new System.Windows.Forms.Button();
             this.lblSpellbookDB = new System.Windows.Forms.Label();
@@ -131,7 +133,6 @@
             this.butEditMonsters = new System.Windows.Forms.Button();
             this.lblFilenameEnc = new System.Windows.Forms.Label();
             this.butReloadMons = new System.Windows.Forms.Button();
-            this.lblSettingsMsg = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -257,6 +258,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.chkAutoSummary);
             this.groupBox5.Controls.Add(this.butEncSaveSingleAs);
             this.groupBox5.Controls.Add(this.butEncounter);
             this.groupBox5.Controls.Add(this.checkSummaryOnly);
@@ -270,9 +272,21 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Create Encounter";
             // 
+            // chkAutoSummary
+            // 
+            this.chkAutoSummary.AutoSize = true;
+            this.chkAutoSummary.Checked = true;
+            this.chkAutoSummary.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoSummary.Location = new System.Drawing.Point(195, 45);
+            this.chkAutoSummary.Name = "chkAutoSummary";
+            this.chkAutoSummary.Size = new System.Drawing.Size(94, 17);
+            this.chkAutoSummary.TabIndex = 15;
+            this.chkAutoSummary.Text = "Auto Summary";
+            this.chkAutoSummary.UseVisualStyleBackColor = true;
+            // 
             // butEncSaveSingleAs
             // 
-            this.butEncSaveSingleAs.Location = new System.Drawing.Point(250, 41);
+            this.butEncSaveSingleAs.Location = new System.Drawing.Point(297, 41);
             this.butEncSaveSingleAs.Name = "butEncSaveSingleAs";
             this.butEncSaveSingleAs.Size = new System.Drawing.Size(75, 23);
             this.butEncSaveSingleAs.TabIndex = 14;
@@ -1049,6 +1063,16 @@
             this.tabPage3.Text = "Settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // lblSettingsMsg
+            // 
+            this.lblSettingsMsg.AutoSize = true;
+            this.lblSettingsMsg.Location = new System.Drawing.Point(11, 3);
+            this.lblSettingsMsg.Name = "lblSettingsMsg";
+            this.lblSettingsMsg.Size = new System.Drawing.Size(70, 13);
+            this.lblSettingsMsg.TabIndex = 2;
+            this.lblSettingsMsg.TabStop = true;
+            this.lblSettingsMsg.Text = "lblSettingMsg";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.butSpellImport);
@@ -1259,16 +1283,6 @@
             this.butReloadMons.UseVisualStyleBackColor = true;
             this.butReloadMons.Click += new System.EventHandler(this.butReloadMons_Click);
             // 
-            // lblSettingsMsg
-            // 
-            this.lblSettingsMsg.AutoSize = true;
-            this.lblSettingsMsg.Location = new System.Drawing.Point(11, 3);
-            this.lblSettingsMsg.Name = "lblSettingsMsg";
-            this.lblSettingsMsg.Size = new System.Drawing.Size(70, 13);
-            this.lblSettingsMsg.TabIndex = 2;
-            this.lblSettingsMsg.TabStop = true;
-            this.lblSettingsMsg.Text = "lblSettingMsg";
-            // 
             // DnDHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1426,6 +1440,7 @@
         private System.Windows.Forms.Button butPickEncounterDB;
         private System.Windows.Forms.Button butSpellImport;
         private System.Windows.Forms.LinkLabel lblSettingsMsg;
+        private System.Windows.Forms.CheckBox chkAutoSummary;
     }
 }
 

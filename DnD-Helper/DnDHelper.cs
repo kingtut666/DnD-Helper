@@ -145,7 +145,16 @@ namespace DnDMonsters
         private void butAdd_Click(object sender, EventArgs e)
         {
             Monster m = comboMonsters.SelectedValue as Monster;
-            curEncounter.AddMonster(m, checkSummaryOnly.Checked);
+            bool summ = checkSummaryOnly.Checked;
+
+            if (!summ && chkAutoSummary.Checked)
+            {
+                //if this monster already exists, just add a summary
+                if (curEncounter.Monsters.Where(a => a.Monster == m).FirstOrDefault() != null)
+                    summ = true;
+            }
+
+            curEncounter.AddMonster(m, summ);
         }
         private void butReloadMons_Click(object sender, EventArgs e)
         {

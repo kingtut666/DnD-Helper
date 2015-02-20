@@ -48,7 +48,7 @@ namespace DnDMonsters
                 "Arial", 48, bold: true, beforeSpace: 0, firstLineIndent: 720);
             
         }
-        public void PopulateDocX(DocXWriter wr)
+        public void PopulateDocX(DocXWriter wr, Random r=null)
         {
             wr.PushStyle("EncTitle");
             wr.PushCharFormat(false, false);
@@ -57,8 +57,21 @@ namespace DnDMonsters
             wr.PopCharFormat();
             wr.PopStyle();
 
+            if (r == null) r = new Random();
+
+            Dictionary<Monster, int> init = new Dictionary<Monster, int>();
+            Dictionary<Monster, int> idx = new Dictionary<Monster, int>();
+
             foreach (ActualMonster m in Monsters)
-                m.PopulateDocX(wr);
+            {
+                if (!init.ContainsKey(m.Monster))
+                {
+                    init.Add(m.Monster, m.Monster.RollInitiative(r));
+                    idx.Add(m.Monster, 1);
+                }
+
+                m.PopulateDocX(wr, idx[m.Monster]++, init[m.Monster]);
+            }
         }
 
     }

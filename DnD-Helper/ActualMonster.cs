@@ -88,32 +88,35 @@ namespace DnDMonsters
         public static void PopulateDocXStyles(DocXWriter wr)
         {
             wr.CreateStyle("AMname", "AMname", false, DocumentFormat.OpenXml.Wordprocessing.StyleValues.Paragraph,
-                "Arial", 36, bold:true, beforeSpace:18, firstLineIndent: 0);
+                "Arial", 32, bold:true, beforeSpace:18, firstLineIndent: 0);
             wr.CreateStyle("AMsmallitalic", "AMsmallitalic", false, DocumentFormat.OpenXml.Wordprocessing.StyleValues.Paragraph,
                 "Arial", 18, italic: true, firstLineIndent: 0);
             wr.CreateStyle("AMnormal", "AMnormal", true, DocumentFormat.OpenXml.Wordprocessing.StyleValues.Paragraph,
                 "Arial", 22, firstLineIndent: 0);
 
         }
-        public void PopulateDocX(DocXWriter wr)
+        public void PopulateDocX(DocXWriter wr, int idx=-1, int initiative=-1)
         {
             wr.PushCharFormat(false, false);
             wr.PushStyle("AMname");
             wr.NewParagraph();
-            string name = Monster.Name;
+            string name = "";
+            name += Monster.Name;
+            if (idx != -1)
+                name += " #"+idx.ToString();
             if (ActualName != "") name += " (" + ActualName + ")";
+            if (initiative != -1)
+                name += " \tInit: " + initiative.ToString();
             wr.AppendText(name);
 
-            if (Summary)
-            {
-                wr.PushCharFormat(true, false);
-                wr.PushStyle("AMnormal");
-                wr.AppendText("\t\tHP:  " + HP.ToString());
-                wr.PopStyle();
-                wr.PopCharFormat();
+                //wr.PushCharFormat(true, false);
+                //wr.PushStyle("AMnormal");
+                wr.AppendText(" \tHP:  " + HP.ToString());
+                //wr.PopStyle();
+                //wr.PopCharFormat();
                 wr.EndParagraph();
-            }
-            else
+            
+            if(!Summary)
             {
                 wr.PushStyle("AMsmallitalic");
                 wr.NewParagraph();
@@ -142,10 +145,10 @@ namespace DnDMonsters
                 wr.PopCharFormat();
                 wr.AppendText(Monster.XP.ToString()+"   ");
 
-                wr.PushCharFormat(true, false);
-                wr.AppendText("HP: ");
-                wr.PopCharFormat();
-                wr.AppendText(HP.ToString());
+                //wr.PushCharFormat(true, false);
+                //wr.AppendText("HP: ");
+                //wr.PopCharFormat();
+                //wr.AppendText(HP.ToString());
 
                 wr.TableStart();
                 wr.PushCharFormat(true, false);
@@ -202,7 +205,7 @@ namespace DnDMonsters
                     wr.AppendText(a.Special);
                 }
 
-                if (Monster.Spells.Keys.Count!=0)
+                if (Monster.SpellDC>0)
                 {
                     wr.NewParagraph();
                     wr.PushCharFormat(true, false);

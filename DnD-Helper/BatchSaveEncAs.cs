@@ -65,13 +65,14 @@ namespace DnDMonsters
             {
                 using (IanUtility.DocXWriter wr = new IanUtility.DocXWriter(sfd.FileName))
                 {
+                    Random r = new Random();
                     Encounter.PopulateDocXStyles(wr);
                     foreach (string s in clEncounters.CheckedItems)
                     {
                         if (s == "Current")
-                            currentEncounter.PopulateDocX(wr);
+                            currentEncounter.PopulateDocX(wr, r);
                         else
-                            Saved[s].PopulateDocX(wr);
+                            Saved[s].PopulateDocX(wr, r);
 
                         if (s != (string)clEncounters.CheckedItems[clEncounters.CheckedItems.Count - 1]) wr.HorizRule();
 
