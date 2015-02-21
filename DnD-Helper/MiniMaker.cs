@@ -146,10 +146,22 @@ namespace DnDMonsters
         void DrawImageAndDecrement(XGraphics gfx, double top, double left, out double bottom, out double right, bool horizontal, ImageSet i)
         {
             XImage img = XImage.FromGdiPlusImage(i.M.GetFullImage(i.M.Name + " #" + i.From.ToString()));
-            gfx.DrawImage(img, left, top);
-            bottom = top + img.PointHeight;
-            right = left + img.PointWidth;
-
+            if (!horizontal)
+            {
+                gfx.DrawImage(img, left, top);
+                bottom = top + img.PointHeight;
+                right = left + img.PointWidth;
+            }
+            else
+            {
+                //rotate 90degrees
+                gfx.Save();
+                gfx.RotateAtTransform(-90, new XPoint(left+(img.PointWidth / 2), top+(img.PointWidth / 2)));
+                gfx.DrawImage(img, left, top);
+                gfx.Restore();
+                bottom = top + img.PointWidth;
+                right = left + img.PointHeight;
+            }
             i.From++;
             DecrementIS(i);
         }
@@ -299,11 +311,19 @@ namespace DnDMonsters
                                 }
                             }
                             ImageSet s = MinisByWidth[wTemp].First();
+                            //check to see if will fit into spareX
+                            if (s.Height > spareX)
+                            {
+                                newRight = p.TrimBox.X2;
+                                break;
+                            }
                             if (newRight == 0) newRight = x + s.Height;
                             double a, b; //throwaway
                             DrawImageAndDecrement(gfx, y, x, out a, out b, true, s);
                             ct--;
                         }
+                        x = newRight;
+                        spareX = p.TrimBox.X2 - x;
                     }
                     //Can't fit any more
                     y = p.TrimBox.Y2;
@@ -447,7 +467,7 @@ namespace DnDMonsters
                 }
             }
             doc.Save(dlg.FileName);
-            
+            SaveCache();
 
 
         }
@@ -524,7 +544,21 @@ namespace DnDMonsters
             foreach (Monster m in monsterCount.Keys) AddMonsterMini(m, monsterCount[m]);
         }
 
-        
+        private void butMiniCheckAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < chkListMiniEncounters.Items.Count; i++)
+                chkListMiniEncounters.SetItemChecked(i, true);
+        }
+
+        private void butMiniInvert_Click(object sender, EventArgs e)
+        {
+            List<int> chk = chkListMiniEncounters.CheckedIndices.OfType<int>().ToList();
+            for (int i = 0; i < chkListMiniEncounters.Items.Count; i++)
+            {
+                if (chk.Contains(i)) chkListMiniEncounters.SetItemChecked(i, false);
+                else chkListMiniEncounters.SetItemChecked(i, true);
+            }
+        }
 
 
     }

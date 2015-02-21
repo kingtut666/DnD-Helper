@@ -122,6 +122,7 @@ namespace DnDMonsters
             if (clear)
             {
                 Monsters = tempMonsters;
+                LoadCache();
             }
             else
             {
@@ -171,6 +172,7 @@ namespace DnDMonsters
         void SaveMonstersToDefault()
         {
             SaveMonstersAsXML(Properties.Settings.Default.MonsterFile);
+            SaveCache();
         }
         void SaveMonsters(string file)
         {
@@ -639,6 +641,37 @@ namespace DnDMonsters
             ser2.WriteObject(xdw, AllSpells);
             xdw.Close();
             s.Close();
+        }
+        #endregion
+
+        #region Cached Images
+        void SaveCache()
+        {
+            string cacheFile = Properties.Settings.Default.MonsterFile + ".cache.XML";
+            if (!Directory.Exists(Path.GetDirectoryName(cacheFile))) Directory.CreateDirectory(Path.GetDirectoryName(cacheFile));
+
+            Type[] extraTypes = new Type[] {typeof(Monster),
+                typeof(Attack),
+                typeof(Dictionary<int, Tuple<int, string>>), typeof(Tuple<int, string>),
+                typeof(List<Attack>)
+            };
+
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<Uri, string>));
+            FileStream s = new FileStream(cacheFile, FileMode.Create);
+            XmlDictionaryWriter xdw = XmlDictionaryWriter.CreateTextWriter(s);
+            ser2.WriteObject(xdw, Monster.cachedUri);
+            xdw.Close();
+            s.Close();
+        }
+        void LoadCache()
+        {
+            string cacheFile = Properties.Settings.Default.MonsterFile + ".cache.XML";
+            if (!File.Exists(cacheFile)) return;
+
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(List<Spell>));
+            FileStream sin = new FileStream(cacheFile, FileMode.Open);
+            Monster.cachedUri = (Dictionary<Uri,string>)ser2.ReadObject(sin);
+            sin.Close();
         }
         #endregion
 

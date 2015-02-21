@@ -133,6 +133,8 @@
             this.butEditMonsters = new System.Windows.Forms.Button();
             this.lblFilenameEnc = new System.Windows.Forms.Label();
             this.butReloadMons = new System.Windows.Forms.Button();
+            this.butMiniCheckAll = new System.Windows.Forms.Button();
+            this.butMiniInvert = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -736,6 +738,8 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.butMiniInvert);
+            this.splitContainer2.Panel2.Controls.Add(this.butMiniCheckAll);
             this.splitContainer2.Panel2.Controls.Add(this.butMiniAddCheckedEncounters);
             this.splitContainer2.Panel2.Controls.Add(this.label10);
             this.splitContainer2.Panel2.Controls.Add(this.chkListMiniEncounters);
@@ -1283,6 +1287,26 @@
             this.butReloadMons.UseVisualStyleBackColor = true;
             this.butReloadMons.Click += new System.EventHandler(this.butReloadMons_Click);
             // 
+            // butMiniCheckAll
+            // 
+            this.butMiniCheckAll.Location = new System.Drawing.Point(454, 88);
+            this.butMiniCheckAll.Name = "butMiniCheckAll";
+            this.butMiniCheckAll.Size = new System.Drawing.Size(75, 23);
+            this.butMiniCheckAll.TabIndex = 9;
+            this.butMiniCheckAll.Text = "Check All";
+            this.butMiniCheckAll.UseVisualStyleBackColor = true;
+            this.butMiniCheckAll.Click += new System.EventHandler(this.butMiniCheckAll_Click);
+            // 
+            // butMiniInvert
+            // 
+            this.butMiniInvert.Location = new System.Drawing.Point(454, 117);
+            this.butMiniInvert.Name = "butMiniInvert";
+            this.butMiniInvert.Size = new System.Drawing.Size(75, 23);
+            this.butMiniInvert.TabIndex = 10;
+            this.butMiniInvert.Text = "Invert";
+            this.butMiniInvert.UseVisualStyleBackColor = true;
+            this.butMiniInvert.Click += new System.EventHandler(this.butMiniInvert_Click);
+            // 
             // DnDHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1441,6 +1465,8 @@
         private System.Windows.Forms.Button butSpellImport;
         private System.Windows.Forms.LinkLabel lblSettingsMsg;
         private System.Windows.Forms.CheckBox chkAutoSummary;
+        private System.Windows.Forms.Button butMiniInvert;
+        private System.Windows.Forms.Button butMiniCheckAll;
     }
 }
 

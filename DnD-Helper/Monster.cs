@@ -120,7 +120,11 @@ namespace DnDMonsters
             }
         }
 
-        private static Dictionary<Uri, string> cachedUri = new Dictionary<Uri, string>();
+        internal static Dictionary<Uri, string> cachedUri = new Dictionary<Uri, string>();
+
+
+
+
 
         #region Static settings
         [NonSerialized, IgnoreDataMember]
@@ -363,6 +367,14 @@ namespace DnDMonsters
                     widthCM = 2 * widthCM;
                     maxHeightCM = MaxHeight;
                     break;
+                case MonsterSizes.Huge:
+                    widthCM = 3 * widthCM;
+                    maxHeightCM = MaxHeight;
+                    break;
+                case MonsterSizes.Gargantuan:
+                    widthCM = 4 * widthCM;
+                    maxHeightCM = MaxHeight;
+                    break;
                 default:
                     //Use default size
                     break;
@@ -523,6 +535,7 @@ namespace DnDMonsters
 
             return fname;
         }
+
 
         #endregion
 
