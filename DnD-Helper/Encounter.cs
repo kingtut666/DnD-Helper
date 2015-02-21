@@ -13,6 +13,17 @@ namespace DnDMonsters
         public string Name = "";
         public SortedBindingList<ActualMonster> Monsters = new SortedBindingList<ActualMonster>();
 
+        public int XP
+        {
+            get
+            {
+                int ret = 0;
+                foreach (ActualMonster m in Monsters)
+                    ret += m.Monster.XP;
+                return ret;
+            }
+        }
+
         public Encounter() { }
         public Encounter(Encounter enc)
         {
@@ -53,7 +64,7 @@ namespace DnDMonsters
             wr.PushStyle("EncTitle");
             wr.PushCharFormat(false, false);
             wr.NewParagraph();
-            wr.AppendText(Name);
+            wr.AppendText(Name + " (XP: "+XP+")");
             wr.PopCharFormat();
             wr.PopStyle();
 

@@ -668,7 +668,7 @@ namespace DnDMonsters
             string cacheFile = Properties.Settings.Default.MonsterFile + ".cache.XML";
             if (!File.Exists(cacheFile)) return;
 
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(List<Spell>));
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<Uri, string>));
             FileStream sin = new FileStream(cacheFile, FileMode.Open);
             Monster.cachedUri = (Dictionary<Uri,string>)ser2.ReadObject(sin);
             sin.Close();

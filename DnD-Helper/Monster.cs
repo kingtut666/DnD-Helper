@@ -72,7 +72,7 @@ namespace DnDMonsters
                 ParseFeats(value);
             } 
         }
-        public int SpellDC = 12;
+        public int SpellDC = 0;
         public int SpellRngAttack = 0;
         public Dictionary<int, Tuple<int, string>> Spells = new Dictionary<int, Tuple<int, string>>();
         public string Descr = "";

@@ -228,10 +228,10 @@ namespace DnDMonsters
             txtLang.Text = cur.Lang;
             //DC, Attack, Spells
             dgSpells.Rows.Clear();
+            numSpDC.Value = cur.SpellDC;
+            numSpAtk.Value = cur.SpellRngAttack;
             if (cur.SpellDC > 0)
             {
-                numSpDC.Value = cur.SpellDC;
-                numSpAtk.Value = cur.SpellRngAttack;
                 List<int> spl = cur.Spells.Keys.ToList();
                 spl.Sort();
                 foreach (int lvl in spl)
@@ -246,7 +246,6 @@ namespace DnDMonsters
                     dgSpells.Rows[idx].Cells["colSpells"].Value = cur.Spells[lvl].Item2;
                 }
             }
-
             //picture
             txtPicture.Text = GetImageDetailsText();
             if (txtPicture.Text != "")
@@ -381,11 +380,11 @@ namespace DnDMonsters
             cur.Source = txtSource.Text;
             cur.Lang = txtLang.Text;
             //DC, Attack, Spells
+            cur.SpellDC = (int)numSpDC.Value;
+            cur.SpellRngAttack = (int)numSpAtk.Value;
+            cur.Spells.Clear();
             if (numSpDC.Value > 0)
             {
-                cur.SpellDC = (int)numSpDC.Value;
-                cur.SpellRngAttack = (int)numSpAtk.Value;
-                cur.Spells.Clear();
                 foreach (DataGridViewRow r in dgSpells.Rows)
                 {
                     if (r.Cells["colLevel"].Value == null) continue;
