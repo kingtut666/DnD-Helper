@@ -481,14 +481,29 @@ namespace DnDMonsters
             {
                 if (SavedEnc.ContainsKey(encName))
                 {
+                    //get counts for this encounter
+                    Dictionary<Monster, int> encMonsterCount = new Dictionary<Monster, int>();
                     foreach (ActualMonster m in SavedEnc[encName].Monsters)
                     {
-                        if (!monsterCount.ContainsKey(m.Monster)) monsterCount.Add(m.Monster, 0);
-                        monsterCount[m.Monster]++;
+                        if (!encMonsterCount.ContainsKey(m.Monster)) encMonsterCount.Add(m.Monster, 0);
+                        encMonsterCount[m.Monster]++;
+                    }
+                    //merge with monsterCount, use whichever is higher
+                    foreach (Monster m in encMonsterCount.Keys)
+                    {
+                        if (monsterCount.ContainsKey(m))
+                        {
+                            if (monsterCount[m] < encMonsterCount[m]) monsterCount[m] = encMonsterCount[m];
+                        }
+                        else
+                        {
+                            monsterCount.Add(m, encMonsterCount[m]);
+                        }
                     }
                 }
             }
 
+            //merge with what's already there.
             foreach (DataGridViewRow r in dgMonsterMini.Rows)
             {
                 Monster m = r.Tag as Monster;

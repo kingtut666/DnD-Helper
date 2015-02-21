@@ -266,18 +266,17 @@ namespace DnDMonsters
                 cur.SourceFile.ToString());        
         }
 
-        bool Save(bool canAdd)
+        bool Save(bool toAdd)
         {
-            bool toAdd = false;
-            if (cur == null)
+            if (cur == null && !toAdd)
             {
-                if (!canAdd)
-                {
-                    MessageBox.Show("Cannot add new monsters unless you click Add");
-                    return false;
-                }
-                toAdd = true;
+                MessageBox.Show("Cannot add new monsters unless you click Add");
+                return false;
+            }
+            if (toAdd)
+            {
                 cur = new Monster();
+                cur.Name = comboMonsterName.Text;
             }
             //XP, Size, Type, Alignment
             cur.XP  = Int32.Parse(comboXP.Text);
@@ -360,20 +359,22 @@ namespace DnDMonsters
                 }
                 if (a.Type == Attack.AttackType.Ranged)
                 {
-                    if (!Int32.TryParse(r.Cells["colRange"].Value.ToString(), out a.MaxRange))
+                    
+                    if (r.Cells["colRange"].Value == null || !Int32.TryParse(r.Cells["colRange"].Value.ToString(), out a.MaxRange))
                     {
-                        MessageBox.Show("Range need to be a number, rather than: " + r.Cells["colRange"].Value.ToString());
+                        MessageBox.Show("Range need to be a number, rather than: " + (r.Cells["colRange"].Value==null?"blank": r.Cells["colRange"].Value.ToString()));
                         return false;
                     }
-                    if (!Int32.TryParse(r.Cells["colMaxRange"].Value.ToString(), out a.MaxRangeDisadv))
+                    if (r.Cells["colMaxRange"].Value == null || !Int32.TryParse(r.Cells["colMaxRange"].Value.ToString(), out a.MaxRangeDisadv))
                     {
-                        MessageBox.Show("Max Range modifiers need to be a number, rather than: " + r.Cells["colMaxRange"].Value.ToString());
+                        MessageBox.Show("Max Range modifiers need to be a number, rather than: " + (r.Cells["colMaxRange"].Value==null?"blank":r.Cells["colMaxRange"].Value.ToString()));
                         return false;
                     }
                 }
                 a.Damage = r.Cells["colDmg"].Value.ToString();
                 //dgAttacks.Rows[idx].Cells["colDmgType"].Value; //TODO: Break out damage type and display
                 a.Special = r.Cells["colOther"].EditedFormattedValue.ToString();
+                cur.Attacks.Add(a);
             }
             //Descr
             cur.Descr = rtfDescr.Text;

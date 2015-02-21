@@ -144,7 +144,9 @@ namespace DnDMonsters
         }
         private void butAdd_Click(object sender, EventArgs e)
         {
-            Monster m = comboMonsters.SelectedValue as Monster;
+            string s = comboMonsters.SelectedValue as string;
+            if (s == null || s == "" || !Monsters.ContainsKey(s)) return;
+            Monster m = Monsters[s] as Monster;
             bool summ = checkSummaryOnly.Checked;
 
             if (!summ && chkAutoSummary.Checked)

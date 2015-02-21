@@ -157,10 +157,12 @@ namespace DnDMonsters
             comboMonsters.Items.Clear();
             if (Monsters.Count > 0)
             {
-                BindingSource bind = new BindingSource(Monsters, null);
-                comboMonsters.DataSource = bind;
-                comboMonsters.DisplayMember = "Key";
-                comboMonsters.ValueMember = "Value";
+                List<string> names = Monsters.Keys.ToList();
+                names.Sort();
+                //BindingSource bind = new BindingSource(Monsters, null);
+                comboMonsters.DataSource = names;
+                //comboMonsters.DisplayMember = "Key";
+                //comboMonsters.ValueMember = "Value";
                 if (Monsters.Count > 0) comboMonsters.SelectedIndex = 0;
                 else comboMonsters.SelectedIndex = -1;
             }

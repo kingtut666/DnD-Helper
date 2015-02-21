@@ -64,6 +64,11 @@ namespace DnDMonsters
                 return ret;
             } 
             set {
+                if (value == "")
+                {
+                    Feats = new Dictionary<string, string>();
+                    return;
+                }
                 ParseFeats(value);
             } 
         }
@@ -307,8 +312,12 @@ namespace DnDMonsters
                 string feat = "";
                 while (idx < s.Length)
                 {
-                    int colon = s[idx].IndexOf(':');
-                    if ((colon != -1 || idx == s.Length - 1) && feat != "")
+                    bool hasColon = false;
+                    if(s[idx].IndexOf(':') != -1) hasColon = true;
+                    if (feat == "" || !hasColon)
+                        feat += s[idx] + ". ";
+                    
+                    if ((hasColon || idx == s.Length - 1) && feat != "")
                     {
                         int fColon = feat.IndexOf(':');
                         if (fColon != -1)
@@ -316,7 +325,8 @@ namespace DnDMonsters
                         else Feats.Add(feat, "");
                         feat = "";
                     }
-                    feat += s[idx] + ". ";
+                    if(hasColon)
+                        feat += s[idx] + ". ";
                     idx++;
                 }
             }

@@ -45,6 +45,12 @@
             this.checkDesert = new System.Windows.Forms.CheckBox();
             this.checkArctic = new System.Windows.Forms.CheckBox();
             this.dgStats = new System.Windows.Forms.DataGridView();
+            this.STR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DEX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CON = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.INT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WIS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CHA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboSize = new System.Windows.Forms.ComboBox();
@@ -118,12 +124,6 @@
             this.cmbSelType = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
             this.cmbSelPic = new System.Windows.Forms.ComboBox();
-            this.STR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DEX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CON = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.INT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WIS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CHA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textResistant = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -162,7 +162,7 @@
             this.butAdd.Location = new System.Drawing.Point(17, 590);
             this.butAdd.Name = "butAdd";
             this.butAdd.Size = new System.Drawing.Size(75, 23);
-            this.butAdd.TabIndex = 1;
+            this.butAdd.TabIndex = 20;
             this.butAdd.Text = "Add";
             this.butAdd.UseVisualStyleBackColor = true;
             this.butAdd.Click += new System.EventHandler(this.butAdd_Click);
@@ -172,7 +172,7 @@
             this.butSave.Location = new System.Drawing.Point(106, 590);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(75, 23);
-            this.butSave.TabIndex = 2;
+            this.butSave.TabIndex = 19;
             this.butSave.Text = "Save";
             this.butSave.UseVisualStyleBackColor = true;
             this.butSave.Click += new System.EventHandler(this.butSave_Click);
@@ -182,7 +182,7 @@
             this.butDel.Location = new System.Drawing.Point(201, 590);
             this.butDel.Name = "butDel";
             this.butDel.Size = new System.Drawing.Size(75, 23);
-            this.butDel.TabIndex = 3;
+            this.butDel.TabIndex = 21;
             this.butDel.Text = "Delete";
             this.butDel.UseVisualStyleBackColor = true;
             this.butDel.Click += new System.EventHandler(this.butDel_Click);
@@ -203,7 +203,7 @@
             this.groupBox1.Location = new System.Drawing.Point(480, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(112, 274);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Environments";
             // 
@@ -334,7 +334,48 @@
             this.dgStats.RowHeadersVisible = false;
             this.dgStats.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgStats.Size = new System.Drawing.Size(331, 48);
-            this.dgStats.TabIndex = 5;
+            this.dgStats.TabIndex = 7;
+            // 
+            // STR
+            // 
+            this.STR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.STR.HeaderText = "STR";
+            this.STR.Name = "STR";
+            this.STR.Width = 54;
+            // 
+            // DEX
+            // 
+            this.DEX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.DEX.HeaderText = "DEX";
+            this.DEX.Name = "DEX";
+            this.DEX.Width = 54;
+            // 
+            // CON
+            // 
+            this.CON.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.CON.HeaderText = "CON";
+            this.CON.Name = "CON";
+            this.CON.Width = 55;
+            // 
+            // INT
+            // 
+            this.INT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.INT.HeaderText = "INT";
+            this.INT.Name = "INT";
+            this.INT.Width = 50;
+            // 
+            // WIS
+            // 
+            this.WIS.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.WIS.HeaderText = "WIS";
+            this.WIS.Name = "WIS";
+            this.WIS.Width = 53;
+            // 
+            // CHA
+            // 
+            this.CHA.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CHA.HeaderText = "CHA";
+            this.CHA.Name = "CHA";
             // 
             // label1
             // 
@@ -342,7 +383,7 @@
             this.label1.Location = new System.Drawing.Point(12, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 43;
             this.label1.Text = "Stats:";
             // 
             // label2
@@ -351,7 +392,7 @@
             this.label2.Location = new System.Drawing.Point(11, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 7;
+            this.label2.TabIndex = 41;
             this.label2.Text = "Size:";
             // 
             // comboSize
@@ -360,7 +401,7 @@
             this.comboSize.Location = new System.Drawing.Point(47, 41);
             this.comboSize.Name = "comboSize";
             this.comboSize.Size = new System.Drawing.Size(90, 21);
-            this.comboSize.TabIndex = 8;
+            this.comboSize.TabIndex = 1;
             // 
             // comboType
             // 
@@ -368,7 +409,7 @@
             this.comboType.Location = new System.Drawing.Point(187, 41);
             this.comboType.Name = "comboType";
             this.comboType.Size = new System.Drawing.Size(135, 21);
-            this.comboType.TabIndex = 9;
+            this.comboType.TabIndex = 2;
             // 
             // label3
             // 
@@ -385,7 +426,7 @@
             this.label4.Location = new System.Drawing.Point(12, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(24, 13);
-            this.label4.TabIndex = 11;
+            this.label4.TabIndex = 42;
             this.label4.Text = "AC:";
             // 
             // label5
@@ -411,21 +452,21 @@
             this.numAC.Location = new System.Drawing.Point(47, 68);
             this.numAC.Name = "numAC";
             this.numAC.Size = new System.Drawing.Size(64, 20);
-            this.numAC.TabIndex = 14;
+            this.numAC.TabIndex = 4;
             // 
             // textHP
             // 
             this.textHP.Location = new System.Drawing.Point(174, 68);
             this.textHP.Name = "textHP";
             this.textHP.Size = new System.Drawing.Size(88, 20);
-            this.textHP.TabIndex = 15;
+            this.textHP.TabIndex = 5;
             // 
             // textSpeed
             // 
             this.textSpeed.Location = new System.Drawing.Point(328, 68);
             this.textSpeed.Name = "textSpeed";
             this.textSpeed.Size = new System.Drawing.Size(128, 20);
-            this.textSpeed.TabIndex = 16;
+            this.textSpeed.TabIndex = 6;
             // 
             // label7
             // 
@@ -442,7 +483,7 @@
             this.comboAlignment.Location = new System.Drawing.Point(390, 41);
             this.comboAlignment.Name = "comboAlignment";
             this.comboAlignment.Size = new System.Drawing.Size(66, 21);
-            this.comboAlignment.TabIndex = 18;
+            this.comboAlignment.TabIndex = 3;
             // 
             // label8
             // 
@@ -485,28 +526,28 @@
             this.textVuln.Location = new System.Drawing.Point(94, 148);
             this.textVuln.Name = "textVuln";
             this.textVuln.Size = new System.Drawing.Size(362, 20);
-            this.textVuln.TabIndex = 23;
+            this.textVuln.TabIndex = 12;
             // 
             // textImmune
             // 
             this.textImmune.Location = new System.Drawing.Point(94, 170);
             this.textImmune.Name = "textImmune";
             this.textImmune.Size = new System.Drawing.Size(362, 20);
-            this.textImmune.TabIndex = 24;
+            this.textImmune.TabIndex = 11;
             // 
             // textSave
             // 
             this.textSave.Location = new System.Drawing.Point(94, 215);
             this.textSave.Name = "textSave";
             this.textSave.Size = new System.Drawing.Size(362, 20);
-            this.textSave.TabIndex = 25;
+            this.textSave.TabIndex = 8;
             // 
             // textSkill
             // 
             this.textSkill.Location = new System.Drawing.Point(94, 238);
             this.textSkill.Name = "textSkill";
             this.textSkill.Size = new System.Drawing.Size(362, 20);
-            this.textSkill.TabIndex = 26;
+            this.textSkill.TabIndex = 9;
             // 
             // groupBox2
             // 
@@ -523,7 +564,7 @@
             this.groupBox2.Location = new System.Drawing.Point(714, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(190, 146);
-            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Senses";
             // 
@@ -542,7 +583,7 @@
             0});
             this.numTremorsense.Name = "numTremorsense";
             this.numTremorsense.Size = new System.Drawing.Size(61, 20);
-            this.numTremorsense.TabIndex = 9;
+            this.numTremorsense.TabIndex = 4;
             // 
             // label22
             // 
@@ -563,7 +604,7 @@
             0});
             this.numPassPercep.Name = "numPassPercep";
             this.numPassPercep.Size = new System.Drawing.Size(61, 20);
-            this.numPassPercep.TabIndex = 7;
+            this.numPassPercep.TabIndex = 3;
             // 
             // numTruesight
             // 
@@ -580,7 +621,7 @@
             0});
             this.numTruesight.Name = "numTruesight";
             this.numTruesight.Size = new System.Drawing.Size(61, 20);
-            this.numTruesight.TabIndex = 6;
+            this.numTruesight.TabIndex = 2;
             // 
             // numBlindsight
             // 
@@ -597,7 +638,7 @@
             0});
             this.numBlindsight.Name = "numBlindsight";
             this.numBlindsight.Size = new System.Drawing.Size(61, 20);
-            this.numBlindsight.TabIndex = 5;
+            this.numBlindsight.TabIndex = 1;
             // 
             // numDarksight
             // 
@@ -614,7 +655,7 @@
             0});
             this.numDarksight.Name = "numDarksight";
             this.numDarksight.Size = new System.Drawing.Size(61, 20);
-            this.numDarksight.TabIndex = 4;
+            this.numDarksight.TabIndex = 0;
             // 
             // label15
             // 
@@ -685,7 +726,7 @@
             this.dgAttacks.Name = "dgAttacks";
             this.dgAttacks.RowHeadersVisible = false;
             this.dgAttacks.Size = new System.Drawing.Size(890, 116);
-            this.dgAttacks.TabIndex = 30;
+            this.dgAttacks.TabIndex = 17;
             // 
             // colName
             // 
@@ -751,7 +792,7 @@
             this.rtfDescr.Location = new System.Drawing.Point(13, 461);
             this.rtfDescr.Name = "rtfDescr";
             this.rtfDescr.Size = new System.Drawing.Size(339, 123);
-            this.rtfDescr.TabIndex = 31;
+            this.rtfDescr.TabIndex = 18;
             this.rtfDescr.Text = "";
             // 
             // label17
@@ -793,7 +834,7 @@
             this.dgSpells.Name = "dgSpells";
             this.dgSpells.RowHeadersVisible = false;
             this.dgSpells.Size = new System.Drawing.Size(432, 117);
-            this.dgSpells.TabIndex = 35;
+            this.dgSpells.TabIndex = 2;
             // 
             // colLevel
             // 
@@ -839,14 +880,14 @@
             -2147483648});
             this.numSpAtk.Name = "numSpAtk";
             this.numSpAtk.Size = new System.Drawing.Size(64, 20);
-            this.numSpAtk.TabIndex = 39;
+            this.numSpAtk.TabIndex = 1;
             // 
             // numSpDC
             // 
             this.numSpDC.Location = new System.Drawing.Point(9, 36);
             this.numSpDC.Name = "numSpDC";
             this.numSpDC.Size = new System.Drawing.Size(64, 20);
-            this.numSpDC.TabIndex = 38;
+            this.numSpDC.TabIndex = 0;
             // 
             // label20
             // 
@@ -871,7 +912,7 @@
             this.textNAttacks.Location = new System.Drawing.Point(94, 303);
             this.textNAttacks.Name = "textNAttacks";
             this.textNAttacks.Size = new System.Drawing.Size(100, 20);
-            this.textNAttacks.TabIndex = 37;
+            this.textNAttacks.TabIndex = 16;
             // 
             // label21
             // 
@@ -892,7 +933,7 @@
             this.dgFeats.Name = "dgFeats";
             this.dgFeats.RowHeadersVisible = false;
             this.dgFeats.Size = new System.Drawing.Size(303, 90);
-            this.dgFeats.TabIndex = 40;
+            this.dgFeats.TabIndex = 15;
             this.dgFeats.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFeats_CellContentClick);
             // 
             // colFeatName
@@ -1018,53 +1059,12 @@
             this.cmbSelPic.TabIndex = 53;
             this.cmbSelPic.SelectedIndexChanged += new System.EventHandler(this.Selections_SelectedIndexChanged);
             // 
-            // STR
-            // 
-            this.STR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.STR.HeaderText = "STR";
-            this.STR.Name = "STR";
-            this.STR.Width = 54;
-            // 
-            // DEX
-            // 
-            this.DEX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.DEX.HeaderText = "DEX";
-            this.DEX.Name = "DEX";
-            this.DEX.Width = 54;
-            // 
-            // CON
-            // 
-            this.CON.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.CON.HeaderText = "CON";
-            this.CON.Name = "CON";
-            this.CON.Width = 55;
-            // 
-            // INT
-            // 
-            this.INT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.INT.HeaderText = "INT";
-            this.INT.Name = "INT";
-            this.INT.Width = 50;
-            // 
-            // WIS
-            // 
-            this.WIS.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.WIS.HeaderText = "WIS";
-            this.WIS.Name = "WIS";
-            this.WIS.Width = 53;
-            // 
-            // CHA
-            // 
-            this.CHA.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CHA.HeaderText = "CHA";
-            this.CHA.Name = "CHA";
-            // 
             // textResistant
             // 
             this.textResistant.Location = new System.Drawing.Point(94, 193);
             this.textResistant.Name = "textResistant";
             this.textResistant.Size = new System.Drawing.Size(362, 20);
-            this.textResistant.TabIndex = 54;
+            this.textResistant.TabIndex = 10;
             // 
             // label28
             // 
@@ -1089,7 +1089,7 @@
             this.txtSource.Location = new System.Drawing.Point(94, 261);
             this.txtSource.Name = "txtSource";
             this.txtSource.Size = new System.Drawing.Size(362, 20);
-            this.txtSource.TabIndex = 57;
+            this.txtSource.TabIndex = 13;
             // 
             // label30
             // 
@@ -1105,7 +1105,7 @@
             this.txtLang.Location = new System.Drawing.Point(94, 283);
             this.txtLang.Name = "txtLang";
             this.txtLang.Size = new System.Drawing.Size(362, 20);
-            this.txtLang.TabIndex = 59;
+            this.txtLang.TabIndex = 14;
             // 
             // EditMonster
             // 
