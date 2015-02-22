@@ -66,6 +66,10 @@
       <Component Id="OpenXML" Guid="">
         <File Id="OpenXML" Source="$(var.DnD-Helper.TargetDir)/DocumentFormat.OpenXml.dll" Checksum="yes" />
       </Component>
+      <Component Id="Docs" Guid="">
+        <File Id="Readme" Source="$(var.DnD-Helper.ProjectDir)/README.TXT" />
+        <File Id="Formats" Source="$(var.DnD-Helper.ProjectDir)/FORMATS.TXT" />
+      </Component>
       <ComponentRef Id="ApplicationShortcut"/>
 		</ComponentGroup>
     <ComponentGroup Id="Examples" Directory="EXAMPLESFOLDER">
