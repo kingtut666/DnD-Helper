@@ -16,7 +16,7 @@ using System.Runtime.Serialization;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     public partial class DnDHelper : Form
     {

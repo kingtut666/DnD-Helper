@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using IanUtility;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     /*
     Wall of Stone 

@@ -15,13 +15,13 @@ using IanUtility;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     public partial class DnDHelper : Form
     {
         List<Spell> AllSpells = new List<Spell>();
         Spellbook curSpellbook = new Spellbook();
-        Dictionary<string, Spellbook> Spellbooks = new Dictionary<string, Spellbook>();
+        SpellbookLookup Spellbooks = new SpellbookLookup();
         
         public event ListChangedEventHandler Spellbook_Changed;
         void RaiseSpellbookChanged(object sender, ListChangedEventArgs args)

@@ -9,6 +9,7 @@ using System.Deployment.Application;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -17,13 +18,15 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace DnDMonsters
+//[assembly: AssemblyVersion("1.0.*")]
+    
+namespace DnDHelper
 {
     public partial class DnDHelper : Form
     {
 
         #region Public
-        public Dictionary<string, Monster> Monsters = new Dictionary<string, Monster>();
+        public MonsterLookup Monsters = new MonsterLookup();
         public Encounter curEncounter = new Encounter();
         public static Random rand = new Random();
         string fileRoot = "";
@@ -38,6 +41,9 @@ namespace DnDMonsters
                 lblSettingsMsg.Links[0].LinkData = ApplicationDeployment.CurrentDeployment.DataDirectory;
             }
             else lblSettingsMsg.Text = "DEBUG BUILD";
+
+            string vers = "Version: "+ typeof(DnDHelper).Assembly.GetName().Version.ToString();
+            lblVersionInfo.Text = vers;
 
             fileRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\KingTut\\";
             if (!Directory.Exists(fileRoot)) Directory.CreateDirectory(fileRoot);

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     public partial class DnDHelper : Form
     {
@@ -69,7 +69,7 @@ namespace DnDMonsters
         }
         void LoadMonsters(string file, bool clear)
         {
-            Dictionary<string, Monster> tempMonsters = new Dictionary<string, Monster>();
+            MonsterLookup tempMonsters = new MonsterLookup();
             if (!File.Exists(file)) return;
 
             string ext = Path.GetExtension(file).ToLower();
@@ -84,9 +84,9 @@ namespace DnDMonsters
                         typeof(List<Attack>)
                             };
 
-                    DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Monster>));
+                    DataContractSerializer ser2 = new DataContractSerializer(typeof(MonsterLookup));
                     FileStream sin = new FileStream(file, FileMode.Open);
-                    tempMonsters = (Dictionary<string, Monster>)ser2.ReadObject(sin);
+                    tempMonsters = (MonsterLookup)ser2.ReadObject(sin);
                     sin.Close();
                 }
                 else
@@ -203,7 +203,7 @@ namespace DnDMonsters
                 typeof(List<Attack>)
             };
 
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Monster>));
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(MonsterLookup));
             FileStream s = new FileStream(file, FileMode.Create);
             XmlDictionaryWriter xdw = XmlDictionaryWriter.CreateTextWriter(s);
             ser2.WriteObject(xdw, Monsters);
@@ -229,7 +229,7 @@ namespace DnDMonsters
             }
         }
         IanUtility.SortedBindingList<string> SaveEncounterList = new IanUtility.SortedBindingList<string>();
-        Dictionary<string, Encounter> SavedEnc = new Dictionary<string, Encounter>();
+        EncounterLookup SavedEnc = new EncounterLookup();
         void SaveEncountersDefault()
         {
             SaveEncountersAsXML(Properties.Settings.Default.EncountersFile);
@@ -243,7 +243,7 @@ namespace DnDMonsters
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Context = new System.Runtime.Serialization.StreamingContext(bf.Context.State, Monsters);
-                SavedEnc = (Dictionary<string, Encounter>)bf.Deserialize(ms);
+                SavedEnc = (EncounterLookup)bf.Deserialize(ms);
             }
 
             SaveEncounterList.RaiseListChangedEvents = false;
@@ -259,12 +259,18 @@ namespace DnDMonsters
             //    typeof(SortedBindingList<ActualMonster>)
             //};
             if (!File.Exists(fname)) return;
-
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Encounter>));
-            FileStream sin = new FileStream(fname, FileMode.Open);
-            SavedEnc = (Dictionary<string, Encounter>)ser2.ReadObject(sin);
-            sin.Close();
-
+            try
+            {
+                DataContractSerializer ser2 = new DataContractSerializer(typeof(EncounterLookup));
+                FileStream sin = new FileStream(fname, FileMode.Open);
+                SavedEnc = (EncounterLookup)ser2.ReadObject(sin);
+                sin.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Couldn't load encounters from: " + fname);
+                SavedEnc = null;
+            }
             if (SavedEnc == null) return;
             foreach (Encounter en in SavedEnc.Values) en.FixupMonster(Monsters);
 
@@ -295,7 +301,7 @@ namespace DnDMonsters
             //};
             if (!Directory.Exists(Path.GetDirectoryName(name))) Directory.CreateDirectory(Path.GetDirectoryName(name));
             
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Encounter>));
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(EncounterLookup));
             FileStream s = new FileStream(name, FileMode.Create);
             XmlDictionaryWriter xdw = XmlDictionaryWriter.CreateTextWriter(s);
             ser2.WriteObject(xdw, SavedEnc);
@@ -361,9 +367,9 @@ namespace DnDMonsters
             if (!File.Exists(fname)) return;
             try
             {
-                DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Spellbook>));
+                DataContractSerializer ser2 = new DataContractSerializer(typeof(SpellbookLookup));
                 FileStream sin = new FileStream(fname, FileMode.Open);
-                Spellbooks = (Dictionary<string, Spellbook>)ser2.ReadObject(sin);
+                Spellbooks = (SpellbookLookup)ser2.ReadObject(sin);
                 sin.Close();
 
                 if (Spellbooks != null)
@@ -383,43 +389,13 @@ namespace DnDMonsters
             if (fname == "") return;
             if (!Directory.Exists(Path.GetDirectoryName(fname))) Directory.CreateDirectory(Path.GetDirectoryName(fname));
             
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<string, Spellbook>));
+            DataContractSerializer ser2 = new DataContractSerializer(typeof(SpellbookLookup));
             FileStream s = new FileStream(fname, FileMode.Create);
             XmlDictionaryWriter xdw = XmlDictionaryWriter.CreateTextWriter(s);
             ser2.WriteObject(xdw, Spellbooks);
             xdw.Close();
             s.Close();
         }
-        /*void LoadSpellbooksAsBlob(string b64Blob)
-        {
-            string s = b64Blob;
-            if (s == "" || s == null) return;
-
-            using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(s)))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Context = new StreamingContext(bf.Context.State, (object)AllSpells);
-                //StreamingContext c = bf.Context;
-                Spellbooks = (Dictionary<string, Spellbook>)bf.Deserialize(ms);
-            }
-
-            //updateComboList
-            UpdateSpellbookList();
-
-        }
-        string SaveSpellbooksAsBlob()
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, Spellbooks);
-                ms.Position = 0;
-                byte[] buffer = new byte[(int)ms.Length];
-                ms.Read(buffer, 0, buffer.Length);
-                return Convert.ToBase64String(buffer);
-            }
-        }
-        */
         void SaveSpellbook(string name)
         {
             if (Spellbooks.ContainsKey(name))
@@ -628,11 +604,19 @@ namespace DnDMonsters
         {
             if (!File.Exists(fname)) return null;
 
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(List<Spell>));
-            FileStream sin = new FileStream(fname, FileMode.Open);
-            List<Spell> ret = (List<Spell>)ser2.ReadObject(sin);
-            sin.Close();
-            return ret;
+            try
+            {
+                DataContractSerializer ser2 = new DataContractSerializer(typeof(List<Spell>));
+                FileStream sin = new FileStream(fname, FileMode.Open);
+                List<Spell> ret = (List<Spell>)ser2.ReadObject(sin);
+                sin.Close();
+                return ret;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Couldn't load Spells from: " + fname);
+            }
+            return null;
         }
 		void SaveSpellsAsXML(string fname)
         {
@@ -671,10 +655,16 @@ namespace DnDMonsters
             string cacheFile = Properties.Settings.Default.MonsterFile + ".cache.XML";
             if (!File.Exists(cacheFile)) return;
 
-            DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<Uri, string>));
-            FileStream sin = new FileStream(cacheFile, FileMode.Open);
-            Monster.cachedUri = (Dictionary<Uri,string>)ser2.ReadObject(sin);
-            sin.Close();
+            try
+            {
+                DataContractSerializer ser2 = new DataContractSerializer(typeof(Dictionary<Uri, string>));
+                FileStream sin = new FileStream(cacheFile, FileMode.Open);
+                Monster.cachedUri = (Dictionary<Uri, string>)ser2.ReadObject(sin);
+                sin.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
         #endregion
 

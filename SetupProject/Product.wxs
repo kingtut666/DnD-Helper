@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="DnD-Helper" Language="1033" Version="1.2.0.0" Manufacturer="KingTut" UpgradeCode="1dd08373-0c31-4421-9bcb-badc3818519c">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="SetupProject" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="Examples" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="COMPANYNAMEFOLDER" Name="KingTut">
+          <Directory Id="INSTALLFOLDER" Name="DnD Helper">
+            <Directory Id="EXAMPLESFOLDER" Name="Examples" />
+          </Directory>
+        </Directory>
+			</Directory>
+      <!-- <Directory Id="AppDataFolder">
+        <Directory Id="DATAFOLDER" Name="KingTut" />
+      </Directory> -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="KingTut"/>
+      </Directory>
+		</Directory>
+	</Fragment>
+  
+  <Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="{37BD397C-9817-4CAE-B5AD-7743D7E01E3C}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="DnD Helper"
+                  Description="A helper for Dungeons and Dragons 5e"
+                  Target="[#MainEXE]"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\KingTut\DnDHelper" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <Component Id="MainEXE" Guid="{37CE0098-0885-4214-8B98-130EE30E71E2}">
+        <File Id="MainEXE" Source="$(var.DnD-Helper.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="IanUtility" Guid="{81A9CFAF-E5E4-486F-9864-34A561593971}">
+        <File Id="IanUtility" Source="$(var.IanUtility.TargetPath)" KeyPath="yes" Checksum="yes" />
+        <!-- <File Source="$(var.DnD-Helper.TargetDir)" /> -->
+      </Component>
+      <!-- 3rd PARTY DEPENDENCIES pdfsharp, openxml -->
+      <Component Id="PdfSharp" Guid="">
+        <File Id="PdfSharpChart" Source="$(var.DnD-Helper.TargetDir)/PdfSharp.Charting.dll" Checksum="yes" />
+        <File Id="PdfSharp" Source="$(var.DnD-Helper.TargetDir)/PdfSharp.dll" Checksum="yes" />
+        <File Id="PdfSharpChartXML" Source="$(var.DnD-Helper.TargetDir)/PdfSharp.Charting.xml" Checksum="yes" />
+        <File Id="PdfSharpXML" Source="$(var.DnD-Helper.TargetDir)/PdfSharp.xml" Checksum="yes" />
+        <File Id="PdfSharpChartRes" Source="$(var.DnD-Helper.TargetDir)/de/PdfSharp.Charting.resources.dll" Checksum="yes" />
+        <File Id="PdfSharpRes" Source="$(var.DnD-Helper.TargetDir)/de/PdfSharp.resources.dll" Checksum="yes" />
+      </Component>
+      <Component Id="OpenXML" Guid="">
+        <File Id="OpenXML" Source="$(var.DnD-Helper.TargetDir)/DocumentFormat.OpenXml.dll" Checksum="yes" />
+      </Component>
+      <ComponentRef Id="ApplicationShortcut"/>
+		</ComponentGroup>
+    <ComponentGroup Id="Examples" Directory="EXAMPLESFOLDER">
+      <!-- DATA FILES -->
+      <Component Id="AllSpells" Guid="">
+        <File Id="AllSpells" Source="$(var.DnD-Helper.ProjectDir)/Data Files/All Spells.xlsx" />
+      </Component>
+      <Component Id="BRMonsters" Guid="">
+        <File Id="BRMonsters" Source="$(var.DnD-Helper.ProjectDir)/Data Files/BR Monsters.xlsx" />
+      </Component>
+      <Component Id="Encounters" Guid="">
+        <File Id="Encounters" Source="$(var.DnD-Helper.ProjectDir)/Data Files/DnDHelper-Encounters.xml" />
+      </Component>
+      <Component Id="Spellbooks" Guid="">
+        <File Id="Spellbooks" Source="$(var.DnD-Helper.ProjectDir)/Data Files/DnDHelper-Spellbooks.xml" />
+      </Component>
+      <Component Id="MMMonsters" Guid="">
+        <File Id="MMMonsters" Source="$(var.DnD-Helper.ProjectDir)/Data Files/MM Monsters.xlsx" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

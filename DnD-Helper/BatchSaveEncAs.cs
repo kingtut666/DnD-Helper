@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     public partial class BatchSaveEncAs : Form
     {
         //Dictionary<string, List<Tuple<string, int, bool, string>>> Saved;
-        Dictionary<string, Encounter> Saved;
+        EncounterLookup Saved;
         Encounter currentEncounter;
 
-        public BatchSaveEncAs(Dictionary<string, Encounter> saved, 
+        public BatchSaveEncAs(EncounterLookup saved, 
             Encounter cur)
         {
             InitializeComponent();

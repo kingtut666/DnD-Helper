@@ -14,8 +14,17 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Net;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
+    [CollectionDataContract
+    (Name = "ArrayOfKeyValueOfstringMonsterD32yJ8R3",
+    ItemName = "KeyValueOfstringMonsterD32yJ8R3")]
+    //KeyName = "countryorregion",
+    //ValueName = "capital")]
+    public class MonsterLookup : Dictionary<string, Monster> { }
+
+
+
     [Flags]
     public enum Environments { None=0x0000, 
         Arctic=0x0001, Coastal=0x0002, Desert=0x0004, Forest=0x0008, 
@@ -339,7 +348,7 @@ namespace DnDMonsters
             }
         }
 
-        public static bool ToXlsX(string fname, Dictionary<string, Monster> ms)
+        public static bool ToXlsX(string fname, MonsterLookup ms)
         {
             FileStream fs = new FileStream(fname, FileMode.Create);
             ExcelFormatter f = new ExcelFormatter();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using IanUtility;
 using System.Runtime.Serialization;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
     [Serializable]
     public class ActualMonster : IComparer<ActualMonster>
@@ -35,10 +35,10 @@ namespace DnDMonsters
         internal void OnDeserializedMethod(StreamingContext context)
         {
             if (context.Context == null) return;
-            Dictionary<string, Monster> ms = (Dictionary<string, Monster>)context.Context;
+            MonsterLookup ms = (MonsterLookup)context.Context;
             FixupMonster(ms);   
         }
-        internal void FixupMonster(Dictionary<string, Monster> ms)
+        internal void FixupMonster(MonsterLookup ms)
         {
             if (ms.ContainsKey(MonsterName))
             {

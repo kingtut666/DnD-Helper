@@ -1,4 +1,4 @@
-﻿namespace DnDMonsters
+﻿namespace DnDHelper
 {
     partial class EditMonster
     {

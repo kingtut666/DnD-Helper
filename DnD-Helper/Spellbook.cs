@@ -5,8 +5,16 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
+     [CollectionDataContract
+    (Name = "ArrayOfKeyValueOfstringSpellbookD32yJ8R3",
+    ItemName = "KeyValueOfstringSpellbookD32yJ8R3")]
+    //KeyName = "countryorregion",
+    //ValueName = "capital")]
+    public class SpellbookLookup : Dictionary<string, Spellbook> { }
+
+
     [Serializable]
     public class Spellbook
     {

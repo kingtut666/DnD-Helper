@@ -4,9 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IanUtility;
+using System.Runtime.Serialization;
 
-namespace DnDMonsters
+namespace DnDHelper
 {
+      [CollectionDataContract
+    (Name = "ArrayOfKeyValueOfstringEncounterD32yJ8R3",
+    ItemName = "KeyValueOfstringEncounterD32yJ8R3")]
+    //KeyName = "countryorregion",
+    //ValueName = "capital")]
+    public class EncounterLookup : Dictionary<string, Encounter> { }
+    
+
+
     [Serializable]
     public class Encounter
     {
@@ -32,7 +42,7 @@ namespace DnDMonsters
                 Monsters.Add(m);
         }
 
-        public void FixupMonster(Dictionary<string, Monster> ms)
+        public void FixupMonster(MonsterLookup ms)
         {
             foreach (ActualMonster m in Monsters) m.FixupMonster(ms);
         }
