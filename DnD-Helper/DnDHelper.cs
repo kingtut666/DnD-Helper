@@ -112,7 +112,10 @@ namespace DnDMonsters
         }
         public void ClearMonsters()
         {
-            curEncounter.Monsters.Clear();
+            curEncounter = new Encounter();
+            //curEncounter.Monsters.Clear();
+            curEncounter.Monsters.ListChanged += activeMonsters_ListChanged;
+            curEncounter.Monsters.ResetBindings();
             flowMonsters.Controls.Clear();
         }
         public bool ToggleSuspendLayout()
@@ -193,8 +196,8 @@ namespace DnDMonsters
         }
         private void butSaveEncounter_Click(object sender, EventArgs e)
         {
-            SaveEncounter(comboEncounters.Text);
-            SaveEncounterList.Add(comboEncounters.Text);
+            if(SaveEncounter(comboEncounters.Text))
+                SaveEncounterList.Add(comboEncounters.Text);
         }
         private void butLoadEncounter_Click(object sender, EventArgs e)
         {
@@ -207,7 +210,7 @@ namespace DnDMonsters
                 SavedEnc.Remove(comboEncounters.Text);
                 SaveEncounterList.Remove(enc);
             }
-            SaveEncountersAsBinary();
+            SaveEncountersDefault();
         }
         #endregion
 

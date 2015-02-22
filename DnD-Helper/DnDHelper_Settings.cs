@@ -302,14 +302,16 @@ namespace DnDMonsters
             xdw.Close();
             s.Close();
         }
-        void SaveEncounter(string name)
+        bool SaveEncounter(string name)
         {
+            bool ret = true;
             if (SavedEnc.ContainsKey(name))
             {
                 DialogResult dlg = MessageBox.Show("An encounter with name " + name + " already exists. Overwrite?", "Warning", MessageBoxButtons.YesNo);
-                if (dlg == System.Windows.Forms.DialogResult.No) return;
+                if (dlg == System.Windows.Forms.DialogResult.No) return false;
                 curEncounter.Name = name;
                 SavedEnc[name] = new Encounter(curEncounter);
+                ret = false;
             }
             else
             {
@@ -318,6 +320,7 @@ namespace DnDMonsters
             }
 
             SaveEncountersDefault();
+            return ret;
         }
         void LoadEncounter(string name)
         {
